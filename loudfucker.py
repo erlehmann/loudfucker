@@ -43,7 +43,7 @@ for row in r128_loudness_data:
     }
 
 oldfactor = 1
-window = rate * 0.1
+window = chunklen / 4
 p = ProgressBar(len(samples))
 for i in sorted(r128_loudness.keys()):
     for j, sample in enumerate(samples[i-chunklen:i]):
