@@ -15,12 +15,17 @@
 
 from progressbar import ProgressBar
 from os import popen
-from sys import argv, stderr
+from sys import argv, exit, stderr
 
 import csv
 from scipy.io import wavfile
 
-wave_filename = argv[1]
+try:
+    wave_filename = argv[1]
+except IndexError:
+    stderr.write('This is a loudfucker. It fucks loudness.\n\n')
+    stderr.write('Usage:\n\t%s [wave file]\n' % argv[0])
+    exit(1)
 
 r128_loudness_data = popen("./ebur128 --tsv %s" % wave_filename).readlines()
 r128_loudness = {}
