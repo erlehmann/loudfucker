@@ -49,9 +49,9 @@ p = ProgressBar(len(samples))
 for i in sorted(r128_loudness.keys()):
     for j, sample in enumerate(samples[i-chunklen:i]):
         S, M = r128_loudness[i]['S'], r128_loudness[i]['M']
-        factor_in_db = (-23 - S)
-        factor = 3**(factor_in_db/10.0)
-        # the value “3” was found by trial and error
+        factor_in_db = (-23 - M)
+        factor = 3.5**(factor_in_db/10.0)
+        # this value was found by trial and error
         # in theory this is 10**(factor_in_db/10.0)
         if j < window:
             smooth_factor = (j*factor + (window-j)*oldfactor) / window
