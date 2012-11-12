@@ -15,10 +15,8 @@
 
 from progressbar import ProgressBar
 from os import popen
-from sys import argv, exit, stderr
-
-import csv
 from scipy.io import wavfile
+from sys import argv, exit, stderr
 
 try:
     wave_filename = argv[1]
