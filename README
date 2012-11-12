@@ -1,0 +1,22 @@
+This is a loudfucker. It fucks loudness.
+
+loudfucker is intended to be a cheap open source alternative /
+substitute for The Levelator® from The Conversations Network, a
+California nonprofit public benefit corporation that is antisocial
+enough to not release source code.
+
+When loudfucker is given a wave file, it creates a file that has
+fucked loudness. Currently this means that the whole file has
+approximately the same loudness, meaning silence is amplified. Thanks
+to Georg from Auphonic for explaining how to calculate the gain factor
+and that I need a sliding window to avoid loudness jumps.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+Dieses Programm hat das Ziel, die Medienkompetenz der Leser zu
+steigern. Gelegentlich packe ich sogar einen handfesten Buffer
+Overflow oder eine Format String Vulnerability zwischen die anderen
+Codezeilen und schreibe das auch nicht dran.
