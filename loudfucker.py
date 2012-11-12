@@ -30,6 +30,7 @@ r128_loudness = {}
 I = 0
 
 rate, samples = wavfile.read(wave_filename)
+channels = len(samples.shape)
 chunklen = int(rate * 0.4)  # 400ms at sample rate
 
 i = 0
@@ -56,8 +57,9 @@ for i in sorted(r128_loudness.keys()):
             smooth_factor = (j*factor + (window-j)*oldfactor) / window
         else:
             smooth_factor = factor
-        while abs(sample[0]*smooth_factor) > 0xFEFE or abs(sample[1]*smooth_factor) > 0xFEFE:
-            smooth_factor = smooth_factor * 0.75  # cheap limiter
+        for k in range(channels-1):
+            while abs(sample[k]*smooth_factor) > 0xFEFE:
+                smooth_factor = smooth_factor * 0.75  # cheap limiter
         samples[i-chunklen+j] = sample*smooth_factor
     oldfactor = factor
     try:
