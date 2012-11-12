@@ -1,0 +1,72 @@
+--- ebur128.cc.old	2012-07-08 13:39:04.000000000 +0200
++++ ebur128.cc	2012-11-11 22:35:44.634668081 +0100
+@@ -40,11 +40,12 @@
+     fprintf (stderr, "  --lufs   Use absolute units.\n");
+     fprintf (stderr, "  --full   Print internal values as well.\n");
+     fprintf (stderr, "  --prob   Write cumulative probability file.\n");
++    fprintf (stderr, "  --tsv    Print raw (momentary, short-term, integrated loudness) as tab separated values.\n");
+     exit (1);
+ }
+ 
+ 
+-enum { HELP, LUFS, FULL, PROB };
++enum { HELP, LUFS, FULL, PROB, TSV };
+ 
+ 
+ static struct option options [] = 
+@@ -53,6 +54,7 @@
+     { "lufs",  0, 0, LUFS  },
+     { "full",  0, 0, FULL  },
+     { "prob",  0, 0, PROB  },
++    { "tsv",  0, 0, TSV  },
+     { 0, 0, 0, 0 }
+ };
+ 
+@@ -60,6 +62,7 @@
+ static bool lufs = false;
+ static bool full = false;
+ static bool prob = false;
++static bool tsv = false;
+ 
+ 
+ static void procoptions (int ac, char *av [])
+@@ -82,6 +85,8 @@
+ 	    break;
+ 	case PROB:
+ 	    prob = true;
++	case TSV:
++	    tsv = true;
+ 	    break;
+  	}
+     }
+@@ -125,7 +130,7 @@
+ 	return 1;
+     }
+ 
+-    bsize = Ainp.rate () / 5;
++    bsize = 2 * Ainp.rate () / 5;
+     inpb = new float [nchan * bsize];
+     if (nchan > 1)
+     {
+@@ -154,6 +159,12 @@
+ 	    }
+ 	}
+ 	Proc.process (k, data);
++	if (tsv)
++	{
++		printf ("%6.1lf\t", Proc.loudness_M ());
++		printf ("%6.1lf\t", Proc.loudness_S ());
++		printf ("%6.1lf\n", Proc.integrated ());
++	}
+     }
+     Ainp.close ();
+     if (nchan > 1)
+@@ -177,7 +188,7 @@
+             printf ("Short term max:        %6.1lf LUFS\n", Proc.maxloudn_S ());
+ 	}
+     }
+-    else
++    if (!tsv)
+     {
+         printf ("Integrated loudness:   %6.1lf LU\n", Proc.integrated () + 23.0f);
+         printf ("Loudness range:        %6.1lf LU\n", Proc.range_max () - Proc.range_min ());
