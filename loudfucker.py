@@ -50,9 +50,9 @@ for i in sorted(r128_loudness.keys()):
     for j, sample in enumerate(samples[i-chunklen:i]):
         S, M = r128_loudness[i]['S'], r128_loudness[i]['M']
         factor_in_db = (-23 - M)
-        factor = 3.5**(factor_in_db/10.0)
-        # this value was found by trial and error
-        # in theory this is 10**(factor_in_db/10.0)
+        factor = 3.1623**(factor_in_db/10.0)
+        # 3.1523 is approx. the square root of 10
+        # in theory it should be 10**(factor_in_db/10.0)
         if j < window:
             smooth_factor = (j*factor + (window-j)*oldfactor) / window
         else:
