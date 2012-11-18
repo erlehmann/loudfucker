@@ -59,7 +59,7 @@ for i in sorted(r128_loudness.keys()):
             smooth_factor = factor
         for k in range(channels-1):
             while abs(sample[k]*smooth_factor) > 0xFEFE:
-                smooth_factor = smooth_factor * 0.75  # cheap limiter
+                smooth_factor = smooth_factor * 0.9  # cheap limiter
         samples[i-chunklen+j] = sample*smooth_factor
     oldfactor = factor
     try:
