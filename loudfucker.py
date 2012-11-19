@@ -14,7 +14,7 @@
 # Codezeilen und schreibe das auch nicht dran.
 
 from progressbar import ProgressBar
-from os import popen
+from os import path, popen
 from scipy.io import wavfile
 from sys import argv, exit, stderr
 
@@ -67,4 +67,4 @@ for i in sorted(r128_loudness.keys()):
     except AssertionError:  # maximum value exceeded
         p.finish()
 
-wavfile.write('%s.output' % wave_filename, rate, samples)
+wavfile.write( '%s.loudfucked%s' % path.splitext(wave_filename), rate, samples )
